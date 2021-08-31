@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
+import StockData from './components/StockData/StockData.js';
+import SearchStockTicker from './components/SearchStockTicker/SearchStockTicker.js';
+import SearchStockDate from './components/SearchStockDate/SearchStockDate.js';
+
 function App() {
   // State Variables
   const [stockData, setStockData] = useState([]);
@@ -97,41 +101,23 @@ function App() {
     <div class="container">
       <h1>Find Info on a stock!</h1>
       <div className="search-box">
-      <input 
-        className="search-input"
-        placeholder="Type stock ticker"
-        value={searchStockTicker}
-        onChange={onSearchStock}
-        />
-      <input 
-        className="search-input"
-        placeholder="YYYY-MM-DD"
-        value={searchDate}
-        onChange={onSearchDate}
-        />
-        <button onClick={doFetch}>Search</button>
-        <div className="stocks-section">
-          { 
-            stockData
-            .map(result => (
-              <div className="Stocks-stock">
-                <div className="Stock-Details">
-                  <div className="Stock-Name">{result.name} ({result.ticker})</div>
-                  <strong>Currency:</strong> {(result.currency_name)}<br />
-                  <strong>Market:</strong> {(result.market)}<br />
-                  <label><strong>Specific Prices:</strong> <br /> 
-                    <select onChange={onLimitByChange} value={limitBy}>
-                      <option value="open">Open</option>
-                      <option value="close">Close</option>
-                      <option value="high">High</option>
-                      <option value="low">Low</option>
-                    </select>
-                  </label>
-                </div>
-              </div>
-            ))
-          }
-        </div>
+
+      <SearchStockTicker 
+        searchStockTicker={searchStockTicker}
+        onSearchStock={onSearchStock}
+      />
+
+      <SearchStockDate
+        searchDate={searchDate}
+        onSearchDate={onSearchDate}
+      />
+
+      <button onClick={doFetch}>Search</button>
+
+      <StockData
+        stockData={stockData}
+      />
+
         <div className="BarChart">
           {
             Object.entries(apiStockStats)
