@@ -14,7 +14,7 @@ function StockData(props) {
                   <strong>Market:</strong> {(result.market)}<br />
                   <strong>Type:</strong> {result.type}<br />
                   <label><strong>Specific Prices:</strong> <br /> 
-                    <select onChange={result.onLimitByChange} value={result.limitBy}>
+                    <select onChange={props.onLimitByChange} value={result.limitBy}>
                       <option value="open">Open</option>
                       <option value="close">Close</option>
                       <option value="high">High</option>

@@ -4,6 +4,7 @@ import './App.css';
 import StockData from './components/StockData/StockData.js';
 import SearchStockTicker from './components/SearchStockTicker/SearchStockTicker.js';
 import SearchStockDate from './components/SearchStockDate/SearchStockDate.js';
+import BarChart from './components/BarChart/BarChart.js';
 
 function App() {
   // State Variables
@@ -11,15 +12,13 @@ function App() {
   const [searchStockTicker, setSearchStockTicker] = useState('');
   const [searchDate, setSearchDate] = useState([]);
   const [apiStockStats, setapiStockStats] = useState([]);
-  const [apiStockInfo, setapiStockInfo] = useState([]);
-  const [limitBy, setLimitBy] = useState(false);
+  const [limitBy, setLimitBy] = useState([]);
 
   /*
     doFetch fetch's the API based on state, updates state with stock info
   */
 
   function doFetch() {
-    console.log('Fetching data')
     const url = `https://api.polygon.io/v3/reference/tickers?ticker=${searchStockTicker}&active=true&sort=ticker&order=asc&limit=10&apiKey=fURCL4yNKe4CuMX2Fk5yMA70pUTDAHAe`
     fetch(url)
       .then(response => response.json())
@@ -49,18 +48,7 @@ function App() {
         // Set the state of the new information
         setapiStockStats(data)
 
-        fetchStockInfo();
       });
-  }
-
-  function fetchStockInfo() {
-    let url = `https://api.polygon.io/v1/meta/symbols/${searchStockTicker}/company?&apiKey=fURCL4yNKe4CuMX2Fk5yMA70pUTDAHAe`
-
-    fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      console.log("Stocks Data: ", data);
-    })
   }
 
   function onSearchStock(ev) {
@@ -83,18 +71,6 @@ function App() {
   function onSearchDate(ev) {
     let value = ev.target.value;
     setSearchDate(value);
-    console.log('Search Date: ', value)
-  }
-
-  console.log("search term is: ", searchStockTicker);
-
-  function barsFromStockValue(stockValue){
-    const numberOfBars = Math.ceil(stockValue/100);
-    const barArray = new Array(numberOfBars).fill();
-    console.log("numberOfBars: ", numberOfBars)
-    console.log("barArray: ", barArray)
-    console.log("barArray[5]: ", barArray[5])
-    return barArray
   }
 
   return (
@@ -116,24 +92,15 @@ function App() {
 
       <StockData
         stockData={stockData}
+        onLimitByChange={onLimitByChange}
       />
 
-        <div className="BarChart">
-          {
-            Object.entries(apiStockStats)
-            .filter(apiStockStats => apiStockStats.includes(limitBy))
-            .map(([key, value]) => (
-              <div className="BarChart-bar">
-                <p className="Key-title"><strong>{key}:</strong> ${value}</p> <br />
-                {barsFromStockValue(value).map((bar, index) => {
-                console.log("RENDERING for index: ", index)
+      <BarChart
+        apiStockStats={apiStockStats}
+        limitBy={limitBy}
 
-                  return <div className="Progression-bar" style={{width: value + "%"}}></div>
-                })}
-              </div>
-            ))
-          }
-        </div>
+      />
+
       </div>
     </div>
   );
