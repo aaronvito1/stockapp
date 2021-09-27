@@ -25,7 +25,8 @@ function BarChart(props) {
             <div className="BarChart-bar">
               <p className="Key-title"><strong>{key}:</strong> ${value}</p> <br />
               {barsFromStockValue(value).map((bar, index) => {
-                return <div className="Progression-bar" style={{width: value + "%"}}></div>
+                return <div className="Progression-bar" style={{ width: value + "px" }}>
+                </div>
               })}
             </div>
           ))

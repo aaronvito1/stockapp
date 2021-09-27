@@ -9,17 +9,15 @@ function StockData(props) {
             .map(result => (
               <div className="Stocks-stock">
                 <div className="Stock-Details">
-                  <div className="Stock-Name">{result.name} ({result.ticker})</div>
-                  <strong>Currency:</strong> {(result.currency_name)}<br />
-                  <strong>Market:</strong> {(result.market)}<br />
-                  <strong>Type:</strong> {result.type}<br />
-                  <label><strong>Specific Prices:</strong> <br /> 
+                  <label className="Stock-Prices"><strong>Prices: </strong>
                     <select onChange={props.onLimitByChange} value={result.limitBy}>
                       <option value="open">Open</option>
                       <option value="close">Close</option>
                       <option value="high">High</option>
                       <option value="low">Low</option>
                     </select>
+                  <div className="Stock-Name">Ticker: {result.ticker} </div>
+                  <div className="Stock-Currency"> Currency: {(result.currency_name)}</div>
                   </label>
                 </div>
               </div>

@@ -1,13 +1,8 @@
-.Stocks-Details {
-  margin-top: 15px;
-  padding: 10px;
-  display: grid;
-  background: white;
-  box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.3);
-  grid-template-columns: 200px 1fr;
+.search-box {
+	display: inline-block;
 }
 
-.Stock-Name{
-  font-size: 24pt;
-  font-family: 'Roboto', sans-serif;
+.search-input-date {
+	padding: 5px;
+	text-align: center;
 }

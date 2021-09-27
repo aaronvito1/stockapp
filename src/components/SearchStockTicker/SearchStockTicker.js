@@ -5,8 +5,8 @@ function SearchStockTicker(props) {
 	return (
     <div className="search-box">
       <input 
-        className="search-input"
-        placeholder="Type stock ticker"
+        className="search-input-ticker"
+        placeholder="Stock Ticker (Ex: NKE)"
         value={props.searchStockTicker}
         onChange={props.onSearchStock}
         />
